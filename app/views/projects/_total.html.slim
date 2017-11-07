@@ -1,0 +1,10 @@
+tr
+  th.total colspan="3" Total
+
+  td.work_time_total
+    = Timetrack.sum(:work_time)
+
+  td.bill_time_total
+    = Timetrack.sum(:bill_time)
+
+  td
