@@ -11,11 +11,11 @@ tr id=dom_id(project)
 
   td.total_worklTime
     - if project.timetracks.present?
-      = project.group_timetracks.sum(:work_time)
+      = project.timetracks.sum(:work_time)
 
   td.total_billTime
     - if project.timetracks.present?
-      = Timetrack.sum(:bill_time)
+      = project.timetracks.sum(:bill_time)
 
   td.actions
     == render 'shared/index/actions', resource: project
