@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170917080707) do
+ActiveRecord::Schema.define(version: 20171107115019) do
 
-  create_table "codes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "codes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title",                                   null: false
     t.string   "identifier",                              null: false
     t.integer  "page_id"
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20170917080707) do
     t.index ["page_id"], name: "index_codes_on_page_id", using: :btree
   end
 
-  create_table "customers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name",                      null: false
+  create_table "customers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "name"
     t.text     "address",     limit: 65535
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20170917080707) do
     t.index ["creator_id"], name: "index_pages_on_creator_id", using: :btree
   end
 
-  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "name",                      null: false
     t.text     "description", limit: 65535
     t.string   "customer"
@@ -88,14 +88,16 @@ ActiveRecord::Schema.define(version: 20170917080707) do
     t.index ["name"], name: "index_roles_on_name", using: :btree
   end
 
-  create_table "timetracks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "timetracks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "name",                                                              null: false
     t.text     "description", limit: 65535
     t.decimal  "work_time",                 precision: 5, scale: 2,                 null: false
     t.decimal  "bill_time",                 precision: 5, scale: 2, default: "0.0"
     t.datetime "created_at",                                                        null: false
     t.datetime "updated_at",                                                        null: false
+    t.integer  "project_id"
     t.integer  "user_id",                                                           null: false
+    t.index ["project_id"], name: "index_timetracks_on_project_id", using: :btree
     t.index ["user_id"], name: "index_timetracks_on_user_id", using: :btree
   end
 
@@ -163,4 +165,6 @@ ActiveRecord::Schema.define(version: 20170917080707) do
   add_foreign_key "images", "users", column: "creator_id", name: "index_images_on_creator_id"
   add_foreign_key "pages", "users", column: "creator_id", name: "index_pages_on_creator_id"
   add_foreign_key "projects", "customers"
+  add_foreign_key "timetracks", "projects"
+  add_foreign_key "timetracks", "users"
 end

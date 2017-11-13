@@ -16,6 +16,7 @@ class User < ApplicationRecord
 
   has_many :created_pages,  foreign_key: :creator_id, class_name: Page
   has_many :created_images, foreign_key: :creator_id, class_name: Image
+  has_many :timetracks
 
   attr_accessor :login
 

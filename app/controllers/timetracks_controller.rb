@@ -4,6 +4,7 @@ class TimetracksController < ApplicationController
   respond_to :html
 
   def create
+    @timetrack.user = current_user
     @timetrack.save
     respond_with @timetrack
   end

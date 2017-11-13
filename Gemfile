@@ -177,7 +177,7 @@ end
 group :production do
   # Use specific version because of this bug: https://github.com/rails/rails/issues/21544
 
-  #gem 'pg'
+  #gem 'pg' if ENV["HEROKU-VERSION"] == 123
 end
 
 # Use ActiveModel has_secure_password
