@@ -12,7 +12,7 @@ describe TimetracksController do
     it 'assigns the logged in user' do
       expect_any_instance_of(Timetrack).to receive(:user=)
 
-      post :create, params: {timetrack: {project_id: @project.id, name: 'Testuser', description: 'Blablabla', address: 'Teststreet'}}
+      post :create, params: {timetrack: {project_id: @project.id, name: 'Testuser', email: 'test@test.ch', avatar: nil, about: 'The testuser says'}}
     end
   end
 end
